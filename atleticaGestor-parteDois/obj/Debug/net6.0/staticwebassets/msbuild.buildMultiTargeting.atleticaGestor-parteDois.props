@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\atleticaGestor-parteDois.props" />
+</Project>
