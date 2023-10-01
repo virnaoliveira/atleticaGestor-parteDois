@@ -6,7 +6,6 @@ namespace atleticaGestor_parteDois.Services
     {
         Atleta Create(Atleta atleta);
         Atleta Update(Atleta atleta);
-        Atleta FindById(long id);
         List<Atleta> FindAll();
         void Delete(long id);
     }

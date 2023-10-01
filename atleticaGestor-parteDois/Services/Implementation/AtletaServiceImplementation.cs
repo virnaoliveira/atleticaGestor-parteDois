@@ -54,11 +54,6 @@ namespace atleticaGestor_parteDois.Services.Implementation
             return _context.Atleta.ToList();
         }
 
-        public Atleta FindById(long id)
-        {
-            return _context.Atleta.SingleOrDefault(p => p.membro_matricula.Equals(id));
-        }
-
         public void Delete(long id)
         {
             var result = _context.Atleta.SingleOrDefault(p => p.membro_matricula.Equals(id));

@@ -19,14 +19,6 @@ namespace atleticaGestor_parteDois.Controllers
             return Ok(_atletaService.FindAll());
         }
 
-        [HttpGet("Atleta/{matricula}")]
-        public IActionResult Get(long id)
-        {
-            var atletaService = _atletaService.FindById(id);
-            if (atletaService == null) return NotFound();
-            return Ok(atletaService);
-        }
-
         [HttpPost("Atleta")]
         public IActionResult Post([FromBody] Atleta atleta)
         {

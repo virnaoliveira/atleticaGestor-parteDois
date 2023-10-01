@@ -6,8 +6,8 @@ namespace atleticaGestor_parteDois.Services
     {
         Time Create(Time time);
         Time Update(Time time);
-        Time FindById(long id);
         List<Time> FindAll();
+        Task<Time> CadastrarEsporte(Time time);
         void Delete(long id);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using atleticaGestor_parteDois.Data;
 using atleticaGestor_parteDois.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace atleticaGestor_parteDois.Services.Implementation
 {
@@ -27,7 +28,6 @@ namespace atleticaGestor_parteDois.Services.Implementation
 
         public Time Update(Time time)
         {
-            if (!Exists(time.idtime)) return new Time();
             var result = _context.Time.SingleOrDefault(p => p.idtime.Equals(time.idtime));
             if (result != null)
             {
@@ -42,21 +42,12 @@ namespace atleticaGestor_parteDois.Services.Implementation
                 }
             }
             return time;
-        }
 
-        private bool Exists(long idtime)
-        {
-            return _context.Time.Any(p => p.idtime.Equals(idtime));
         }
 
         public List<Time> FindAll()
         {
             return _context.Time.ToList();
-        }
-
-        public Time FindById(long id)
-        {
-            return _context.Time.SingleOrDefault(p => p.idtime.Equals(id));
         }
 
         public void Delete(long id)
@@ -75,5 +66,36 @@ namespace atleticaGestor_parteDois.Services.Implementation
                 }
             }
         }
+
+        public async Task<Time> CadastrarEsporte(Time time)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var result = await _context.Time.AnyAsync(p => p.esporte.Equals(time.esporte));
+                    if (result)
+                    {
+                        transaction.Rollback();
+                        return null;
+                    }
+                    else
+                    {
+                        time.idatletica = 1;
+                        _context.Add(time);
+                        await _context.SaveChangesAsync();
+
+                        transaction.Commit();
+                        return time;
+                    }
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
     }
 }

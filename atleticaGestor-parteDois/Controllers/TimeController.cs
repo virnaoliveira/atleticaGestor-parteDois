@@ -19,14 +19,6 @@ namespace atleticaGestor_parteDois.Controllers
             return Ok(_timeService.FindAll());
         }
 
-        [HttpGet("Time/{id}")]
-        public IActionResult Get(long id)
-        {
-            var time = _timeService.FindById(id);
-            if (time == null) return NotFound();
-            return Ok(time);
-        }
-
         [HttpPost("Time")]
         public IActionResult Post([FromBody] Time time)
         {
@@ -34,8 +26,8 @@ namespace atleticaGestor_parteDois.Controllers
             return Ok(_timeService.Create(time));
         }
 
-        [HttpPut("Time/{id}")]
-        public IActionResult Put(long id, [FromBody] Time time)
+        [HttpPut("Time")]
+        public IActionResult Put([FromBody] Time time)
         {
             if (time == null) return BadRequest();
             return Ok(_timeService.Update(time));
